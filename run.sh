@@ -1,4 +1,4 @@
-#!/bin/sh
-export FLASK_APP=app.py
-export FLASK_ENV=development
-flask run
+#!/bin/bash
+
+uvicorn main:app --host 192.168.1.222 --port 8448 --reload
+

@@ -1,6 +1,5 @@
 import pulsectl
 from models.sink import sink_serialize
-from flask import jsonify
 from enum import Enum
 
 
@@ -31,7 +30,7 @@ def volume(change: Change):
                 pulse.mute(sink, 1)
         sinks.append(sink_serialize(sink))
 
-    return jsonify(sinks)
+    return sinks
 
 def volume_down():
     return volume(Change.DOWN)
