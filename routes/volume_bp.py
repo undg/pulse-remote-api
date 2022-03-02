@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 
 from controllers.volume.up import volume_up
 from controllers.volume.down import volume_down
