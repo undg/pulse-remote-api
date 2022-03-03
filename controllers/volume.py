@@ -23,7 +23,7 @@ def volume(change: Value, vol: int = 0):
         elif change == Value.DOWN:
             pulse.volume_change_all_chans(sink, -0.05)
         elif change == Value.INFO:
-            pulse.volume_change_all_chans(sink, 0) # possibly pulse.volume_get_all_chans() is better, if it returns same type.
+            pulse.volume_get_all_chans(sink)
         elif change == Value.SET:
             pulse.volume_set_all_chans(sink, vol / 100)
         elif change == Value.TOGGLE:

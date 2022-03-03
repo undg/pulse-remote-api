@@ -20,7 +20,7 @@ def vol_down():
     return volume_down()
 
 
-@app.get("/volume/mute")
+@app.get("/volume/toggle")
 def vol_mute():
     return volume_toggle()
 
