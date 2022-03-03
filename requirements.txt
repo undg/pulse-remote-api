@@ -1,0 +1,2 @@
+pulsectl>=21.10.5
+fastapi>=0.74.1

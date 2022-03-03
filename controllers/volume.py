@@ -27,11 +27,11 @@ def volume(change: Value, vol: int = 0):
         elif change == Value.SET:
             pulse.volume_set_all_chans(sink, vol / 100)
         elif change == Value.TOGGLE:
-            if sink.mute == 1:
-                pulse.mute(sink, 0)
-            else:
-                pulse.mute(sink, 1)
+            mute = 0 if sink.mute == 1 else 1
+            pulse.mute(sink, mute)
         sinks.append(sink_serialize(sink))
+
+    pulse.close()
 
     return sinks
 
