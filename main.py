@@ -1,5 +1,6 @@
 import sys
 from fastapi import FastAPI
+from controllers.sinks import sink_input_list
 from controllers.volume import volume_set, volume_up, volume_down, volume_toggle, volume_info
 from controllers.cors import setupCORS
 
@@ -8,24 +9,28 @@ app = FastAPI()
 setupCORS(app)
 
 @app.get("/volume/set/{vol}")
-def vol_set(vol: str):
+def v_set(vol: str):
     return volume_set(int(vol))
 
 @app.get("/volume/up")
-def vol_up():
+def v_up():
     return volume_up()
 
 @app.get("/volume/down")
-def vol_down():
+def v_down():
     return volume_down()
 
 
 @app.get("/volume/toggle")
-def vol_mute():
+def v_mute():
     return volume_toggle()
 
 
 @app.get("/volume/info")
-def vol_info():
+def v_info():
     return volume_info()
+
+@app.get("/sink/input/list")
+def s_input_list():
+    return sink_input_list()
 

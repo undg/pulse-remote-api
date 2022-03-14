@@ -10,7 +10,6 @@ class Value(Enum):
     INFO = "info"
     SET = "set"
 
-
 def volume(change: Value, vol: int = 0):
 
     sinks = []
@@ -49,3 +48,4 @@ def volume_info():
 
 def volume_set(vol: int):
     return volume(Value.SET, vol)
+
