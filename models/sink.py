@@ -1,67 +1,72 @@
 from pydantic.main import BaseModel
 
 
-class Volume(BaseModel):
+class ISink_input_list(BaseModel):
+    id: int
+    mute: bool
+    name: str
+
+
+class IVolume(BaseModel):
     name: str
     value: float
-class Sink_serialize_model(BaseModel):
-        description: str
-        name: str
-        index: int
-        mute: bool
-        raw: str
-        volume: list[Volume]
-                
+
+
+class ISink_serialize(BaseModel):
+    volume: list[IVolume]
+    description: str
+    name: str
+    index: int
+    mute: bool
+    raw: str
+
 
 def sink_serialize(sink):
     # I'm not sure if this is true. Speakers are elements of list, I'm not sure what are order rules. I have stereo and 5.1 so those two should be OK. Rest is just guessing.
-    volume = []
+    channels = [{"name": "Unknown as mono", "value": sink.volume.values[0]}]
     if len(sink.volume.values) == 1:
-        volume = [{'name': "Mono", 'value': sink.volume.values[0]}]
-    elif len(sink.volume.values) == 2:
-        volume = [
-            {'name': "Front Left", 'value': sink.volume.values[0]},
-            {'name': "Front Right", 'value': sink.volume.values[1]},
+        channels = [{"name": "Mono", "value": sink.volume.values[0]}]
+    if len(sink.volume.values) == 2:
+        channels = [
+            {"name": "Front Left", "value": sink.volume.values[0]},
+            {"name": "Front Right", "value": sink.volume.values[1]},
         ]
     elif len(sink.volume.values) == 3:
-        volume = [
-            {'name': "Front Left", 'value': sink.volume.values[0]},
-            {'name': "Front Right", 'value': sink.volume.values[1]},
-            {'name': "Subwoofer", 'value': sink.volume.values[2]},
+        channels = [
+            {"name": "Front Left", "value": sink.volume.values[0]},
+            {"name": "Front Right", "value": sink.volume.values[1]},
+            {"name": "Subwoofer", "value": sink.volume.values[2]},
         ]
     elif len(sink.volume.values) == 4:
-        volume = [
-            {'name': "Front Left", 'value': sink.volume.values[0]},
-            {'name': "Front Right", 'value': sink.volume.values[1]},
-            {'name': "Rear Left", 'value': sink.volume.values[2]},
-            {'name': "Rear Right", 'value': sink.volume.values[3]},
+        channels = [
+            {"name": "Front Left", "value": sink.volume.values[0]},
+            {"name": "Front Right", "value": sink.volume.values[1]},
+            {"name": "Rear Left", "value": sink.volume.values[2]},
+            {"name": "Rear Right", "value": sink.volume.values[3]},
         ]
     elif len(sink.volume.values) == 5:
-        volume = [
-            {'name': "Front Left", 'value': sink.volume.values[0]},
-            {'name': "Front Right", 'value': sink.volume.values[1]},
-            {'name': "Rear Left", 'value': sink.volume.values[2]},
-            {'name': "Rear Right", 'value': sink.volume.values[3]},
-            {'name': "Subwoofer", 'value': sink.volume.values[4]},
+        channels = [
+            {"name": "Front Left", "value": sink.volume.values[0]},
+            {"name": "Front Right", "value": sink.volume.values[1]},
+            {"name": "Rear Left", "value": sink.volume.values[2]},
+            {"name": "Rear Right", "value": sink.volume.values[3]},
+            {"name": "Subwoofer", "value": sink.volume.values[4]},
         ]
     elif len(sink.volume.values) == 6:
-        volume = [
-            {'name': "Front Left", 'value': sink.volume.values[0]},
-            {'name': "Front Right", 'value': sink.volume.values[1]},
-            {'name': "Rear Left", 'value': sink.volume.values[2]},
-            {'name': "Rear Right", 'value': sink.volume.values[3]},
-            {'name': "Front Center", 'value': sink.volume.values[4]},
-            {'name': "Subwoofer", 'value': sink.volume.values[5]},
+        channels = [
+            {"name": "Front Left", "value": sink.volume.values[0]},
+            {"name": "Front Right", "value": sink.volume.values[1]},
+            {"name": "Rear Left", "value": sink.volume.values[2]},
+            {"name": "Rear Right", "value": sink.volume.values[3]},
+            {"name": "Front Center", "value": sink.volume.values[4]},
+            {"name": "Subwoofer", "value": sink.volume.values[5]},
         ]
-    else:
-        volume = {"unknown": sink.volume.values[0]}
 
     return {
-        "volume": volume,
+        "volume": channels,
         "description": sink.description,
         "name": sink.name,
         "index": sink.index,
         "mute": sink.mute,
-        "raw": str(sink)
+        "raw": str(sink),
     }
-
