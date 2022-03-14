@@ -1,3 +1,18 @@
+from pydantic.main import BaseModel
+
+
+class Volume(BaseModel):
+    name: str
+    value: float
+class Sink_serialize_model(BaseModel):
+        description: str
+        name: str
+        index: int
+        mute: bool
+        raw: str
+        volume: list[Volume]
+                
+
 def sink_serialize(sink):
     # I'm not sure if this is true. Speakers are elements of list, I'm not sure what are order rules. I have stereo and 5.1 so those two should be OK. Rest is just guessing.
     volume = []

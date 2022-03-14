@@ -1,8 +1,5 @@
-import json
 import pulsectl
-from models.sink import sink_serialize
 
-from utils.MyEncoder import MyEncoder
 
 
 def sink_input_list():
