@@ -33,19 +33,12 @@ def volume(change: Value, vol: int = 0, card: int = None):
 
             pulse.volume_set(audio_card, volume)
 
-                # pulse.volume_get_all_chans(audio_card)
-        # sinks.append(sink_serialize(audio_card))
-
-    # pulse.close()
-
     sinks = []
-    # pulse = pulsectl.Pulse("volume-changer")
     for audio_card in pulse.sink_list():
         sinks.append(sink_serialize(audio_card))
     pulse.close()
 
     return sinks
-
 
 def volume_down(card: int = None):
     return volume(Value.DOWN, 0, card)
