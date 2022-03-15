@@ -13,7 +13,6 @@ class Value(Enum):
 
 def volume(change: Value, vol: int = 0, card: int = None):
 
-    sinks = []
 
     pulse = pulsectl.Pulse("volume-changer")
 
@@ -31,9 +30,18 @@ def volume(change: Value, vol: int = 0, card: int = None):
                 pulse.mute(audio_card, mute)
             elif change == Value.INFO:
                 pulse.volume_get_all_chans(audio_card)
-            pulse.volume_set(audio_card, volume)
-        sinks.append(sink_serialize(audio_card))
 
+            pulse.volume_set(audio_card, volume)
+
+                # pulse.volume_get_all_chans(audio_card)
+        # sinks.append(sink_serialize(audio_card))
+
+    # pulse.close()
+
+    sinks = []
+    # pulse = pulsectl.Pulse("volume-changer")
+    for audio_card in pulse.sink_list():
+        sinks.append(sink_serialize(audio_card))
     pulse.close()
 
     return sinks
