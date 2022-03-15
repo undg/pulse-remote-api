@@ -11,22 +11,22 @@ sys.path.append(".")
 app = FastAPI()
 setupCORS(app)
 
-@app.get("/volume/set/{vol}", response_model=list[ISink_serialize])
-def v_set(vol: int):
-    return volume_set(vol)
+@app.get("/volume/set/{vol}/{card}", response_model=list[ISink_serialize])
+def v_set(vol: int, card: int):
+    return volume_set(vol, card)
 
-@app.get("/volume/up", response_model=list[ISink_serialize])
-def v_up():
-    return volume_up()
+@app.get("/volume/up/{card}", response_model=list[ISink_serialize])
+def v_up(card: int):
+    return volume_up(card)
 
-@app.get("/volume/down", response_model=list[ISink_serialize])
-def v_down():
-    return volume_down()
+@app.get("/volume/down/{card}", response_model=list[ISink_serialize])
+def v_down(card: int):
+    return volume_down(card)
 
 
-@app.get("/volume/toggle", response_model=list[ISink_serialize])
-def v_mute():
-    return volume_toggle()
+@app.get("/volume/toggle/{card}", response_model=list[ISink_serialize])
+def v_mute(card: int ):
+    return volume_toggle(card)
 
 
 @app.get("/volume/info", response_model=list[ISink_serialize])
