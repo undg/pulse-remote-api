@@ -2,8 +2,8 @@ import sys
 from fastapi import FastAPI
 from controllers.cors import setupCORS
 
-from controllers.sinks import sink_input_list
-from models.sink import ISink_serialize, ISink_input_list
+from controllers.sinks import sink_input_info, sink_input_volume_down, sink_input_volume_up
+from models.sink import ISink_serialize, ISink_input
 from controllers.volume import volume_set, volume_up, volume_down, volume_toggle, volume_info
 
 
@@ -34,7 +34,14 @@ def v_info():
     return volume_info()
 
 
-@app.get("/sink/input/list", response_model=list[ISink_input_list])
-def s_input_list():
-    return sink_input_list()
+@app.get("/sink/input/info", response_model=list[ISink_input])
+def s_input_info():
+    return sink_input_info()
 
+@app.get("/sink/input/up/{index}", response_model=ISink_input)
+def s_input_volume_up(index: int):
+    return sink_input_volume_up(index)
+
+@app.get("/sink/input/down/{index}", response_model=ISink_input)
+def s_input_volume_down(index: int):
+    return sink_input_volume_down(index)

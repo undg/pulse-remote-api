@@ -1,10 +1,11 @@
 from pydantic.main import BaseModel
 
 
-class ISink_input_list(BaseModel):
+class ISink_input(BaseModel):
     id: int
     mute: bool
     name: str
+    volume: float
 
 
 class IVolume(BaseModel):
