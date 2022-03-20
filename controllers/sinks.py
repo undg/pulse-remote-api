@@ -20,7 +20,7 @@ def sink_input_volume_set(index: int, vol: float):
     p = pulsectl.Pulse('volume-set')
     sink: Any = p.sink_input_info(index)
 
-    p.volume_set_all_chans(sink, vol)
+    p.volume_set_all_chans(sink, vol / 100)
 
     input_sink_serialized = {
         "id" : sink.index,
