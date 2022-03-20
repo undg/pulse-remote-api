@@ -16,33 +16,39 @@ def sink_input_info():
     p.close()
     return sinks
 
+def sink_input_volume_set(index: int, vol: float):
+    p = pulsectl.Pulse('volume-set')
+    sink: Any = p.sink_input_info(index)
+
+    p.volume_set_all_chans(sink, vol)
+
+    input_sink_serialized = {
+        "id" : sink.index,
+        "mute" : sink.mute,
+        "name" : sink.name,
+        "volume": p.volume_get_all_chans(sink),
+    }
+
+    p.close()
+    return input_sink_serialized
+
 def sink_input_volume(index: int, inc: float):
-    try:
-        p = pulsectl.Pulse("sink-input-volume-change")
-        # There is strange pyrigh error. Any is not so elegant, but it's muting it.
-        sink: Any = p.sink_input_info(index)
+    p = pulsectl.Pulse("sink-input-volume-change")
+    # There is strange pyrigh error. Any is not so elegant, but it's muting it.
+    sink: Any = p.sink_input_info(index)
 
-        p.volume_change_all_chans(sink, inc)
+    p.volume_change_all_chans(sink, inc)
 
-        input_sink_serialized = {
-            "id" : sink.index,
-            "mute" : sink.mute,
-            "name" : sink.name,
-            "volume": p.volume_get_all_chans(sink),
-        }
+    input_sink_serialized = {
+        "id" : sink.index,
+        "mute" : sink.mute,
+        "name" : sink.name,
+        "volume": p.volume_get_all_chans(sink),
+    }
 
-        p.close()
-        return input_sink_serialized
+    p.close()
+    return input_sink_serialized
 
-    except:
-        input_sink_serialized = {
-            "id" : index,
-            "mute" : False,
-            "name" : 'Unknown',
-            "volume": 'Unknown',
-        }
-
-        return input_sink_serialized
 def sink_input_volume_up(index):
     return sink_input_volume(index, 0.05)
 
