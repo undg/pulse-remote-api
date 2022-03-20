@@ -16,6 +16,23 @@ def sink_input_info():
     p.close()
     return sinks
 
+def sink_input_toggle(index):
+    p = pulsectl.Pulse('volume-set')
+    sink: Any = p.sink_input_info(index)
+
+    mute = 0 if sink.mute == 1 else 1
+    p.mute(sink, mute)
+
+    input_sink_serialized = {
+        "id" : sink.index,
+        "mute" : sink.mute,
+        "name" : sink.name,
+        "volume": p.volume_get_all_chans(sink),
+    }
+
+    p.close()
+    return input_sink_serialized
+
 def sink_input_volume_set(index: int, vol: float):
     p = pulsectl.Pulse('volume-set')
     sink: Any = p.sink_input_info(index)

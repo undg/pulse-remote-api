@@ -4,6 +4,7 @@ from controllers.cors import setupCORS
 
 from controllers.sinks import (
     sink_input_info,
+    sink_input_toggle,
     sink_input_volume_down,
     sink_input_volume_set,
     sink_input_volume_up,
@@ -66,3 +67,7 @@ def s_input_volume_down(index: int):
 @app.get("/sink/input/set/{vol}/{index}", response_model=ISink_input)
 def s_input_volume_set(index: int, vol: float):
     return sink_input_volume_set(index, vol)
+
+@app.get("/sink/input/toggle/{index}", response_model=ISink_input)
+def s_input_toggle(index: int):
+    return sink_input_toggle(index)
