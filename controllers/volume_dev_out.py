@@ -40,21 +40,21 @@ def volume(change: Value, vol: int = 0, card: int = None):
 
     return sinks
 
-def volume_down(card: int = None):
+def volume_dev_out_down(card: int = None):
     return volume(Value.DOWN, 0, card)
 
 
-def volume_up(card: int = None):
+def volume_dev_out_up(card: int = None):
     return volume(Value.UP, 0, card)
 
 
-def volume_toggle(card: int = None):
+def volume_dev_out_toggle(card: int = None):
     return volume(Value.TOGGLE, 0, card)
 
 
-def volume_info():
+def volume_dev_out_info():
     return volume(Value.INFO)
 
 
-def volume_set(vol: int, card: int):
+def volume_dev_out_set(vol: int, card: int):
     return volume(Value.SET, vol, card)

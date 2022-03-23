@@ -1,20 +1,20 @@
 from pydantic.main import BaseModel
 
 
-class ISink_input(BaseModel):
-    id: int
+class IVolume_Info(BaseModel):
+    index: int
     mute: bool
     name: str
     volume: float
 
 
-class IVol(BaseModel):
+class IVolume(BaseModel):
     name: str
     value: float
 
 
 class ISink_serialize(BaseModel):
-    volume: list[IVol]
+    volume: list[IVolume]
     description: str
     name: str
     index: int
