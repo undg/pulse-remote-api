@@ -95,4 +95,5 @@ def va_set(index: int, vol: float):
 def va_toggle(index: int):
     return volume_app_toggle(index)
 
+
 # In devices

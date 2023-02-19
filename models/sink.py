@@ -23,7 +23,9 @@ class ISink_serialize(BaseModel):
 
 
 def sink_serialize(sink):
-    # I'm not sure if this is true. Speakers are elements of list, I'm not sure what are order rules. I have stereo and 5.1 so those two should be OK. Rest is just guessing.
+    # I'm not sure if this is true. Speakers are elements of list, I'm not sure
+    # what are order rules. I have stereo and 5.1 so those two should be OK.
+    # Rest is just guessing.
     channels = [{"name": "Unknown as mono", "value": sink.volume.values[0]}]
     if len(sink.volume.values) == 1:
         channels = [{"name": "Mono", "value": sink.volume.values[0]}]

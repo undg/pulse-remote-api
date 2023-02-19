@@ -13,7 +13,6 @@ class Value(Enum):
 
 def volume(change: Value, vol: int = 0, card: int = None):
 
-
     pulse = pulsectl.Pulse("volume-changer")
 
     for audio_card in pulse.sink_list():
@@ -39,6 +38,7 @@ def volume(change: Value, vol: int = 0, card: int = None):
     pulse.close()
 
     return sinks
+
 
 def volume_dev_out_down(card: int = None):
     return volume(Value.DOWN, 0, card)

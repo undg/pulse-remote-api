@@ -1,5 +1,6 @@
 {
     "analysis": {
-        "extraPaths": ".."
+        "extraPaths": "..",
+        "maxLineLength": 120
     }
 }
