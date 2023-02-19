@@ -3,17 +3,24 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # use CORSMiddleware to setup origins, credentials, methods, headers...
 def setupCORS(app):
-    port = "3000"
-    origins = [
-        "http://192.168.1.222:" + port,
-        "https://192.168.1.222:" + port,
-        "http://cm:" + port,
-        "https://cm:" + port,
-        "http://127.0.0.1:" + port,
-        "https://127.0.0.1:" + port,
-        "http://localhost:" + port,
-        "https://loacalhost:" + port,
-    ]
+    ports = {"dev": "3000", "prod": "9553"}
+    urls = {
+        "name0": "http://192.168.1.222",
+        "name1": "https://192.168.1.222",
+        "name2": "http://cm",
+        "name3": "https://cm",
+        "name4": "http://127.0.0.1",
+        "name5": "https://127.0.0.1",
+        "name6": "http://localhost",
+        "name7": "https://loacalhost",
+    }
+    origins = []
+    for url in urls.values():
+        for port in ports.values():
+            origins.append(url + ":" + port)
+
+    for origin in origins:
+        print(origin)
 
     app.add_middleware(
         CORSMiddleware,
@@ -22,5 +29,3 @@ def setupCORS(app):
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
-
