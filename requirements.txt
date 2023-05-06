@@ -1,3 +1,7 @@
 fastapi==0.75.0
 pulsectl==21.10.5
 pydantic==1.9.0
+uvicorn==0.21.1
+wrapt~=1.10
+dnspython>=1.15.0
+
