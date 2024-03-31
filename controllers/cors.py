@@ -5,8 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 def setupCORS(app):
     ports = {"dev": "3000", "prod": "9553"}
     urls = {
-        "name0": "http://192.168.1.222",
-        "name1": "https://192.168.1.222",
+        "name0": "http://192.168.1.111",
+        "name1": "https://192.168.1.111",
         "name2": "http://cm",
         "name3": "https://cm",
         "name4": "http://127.0.0.1",
